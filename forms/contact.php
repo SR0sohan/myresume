@@ -1,24 +1,19 @@
+
+
 <?php
-  $receiving_email_address = 'fi304134@gmail.com';
+//get data from form  
+$name = $_POST['name'];
+$email= $_POST['email'];
+$subject = $_POST['subject'];
+$message= $_POST['message'];
 
-  if( file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php' )) {
-    include( $php_email_form );
-  } else {
-    die( 'Unable to load the "PHP Email Form" Library!');
-  }
+$to = "fi304134@gmail.com";
 
-  $contact = new PHP_Email_Form;
-  $contact->ajax = true;
-  
-  $contact->to = $receiving_email_address;
-  $contact->from_name = $_POST['name'];
-  $contact->from_email = $_POST['email'];
-  $contact->subject = $_POST['subject'];
-
-
-  $contact->add_message( $_POST['name'], 'From');
-  $contact->add_message( $_POST['email'], 'Email');
-  $contact->add_message( $_POST['message'], 'Message', 10);
-
-  echo $contact->send();
+$txt ="Name = ". $name . "\r\n  Email = " . $email .  "\r\n subject =". $subject. "\r\n Message =" . $message ;
+$headers = "From: noreply@sr0sohan.com" . "\r\n" .
+"CC: somebodyelse@example.com";
+if($email!=NULL){
+    mail($to,$subject,$txt,$headers);
+}
+header("location:index.html");
 ?>
